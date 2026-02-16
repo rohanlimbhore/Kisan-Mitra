@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Community | Krishi Mitra{% endblock %}
+{% block content %}
+<section class="container page-section">
+  <h1>Farmer Community</h1>
+  <p class="subhead">Share field updates with text, images, and videos.</p>
+
+  <form method="post" enctype="multipart/form-data" class="card form-card">
+    <label for="content">Post content</label>
+    <textarea id="content" name="content" rows="4" placeholder="Share your question or insight..." required></textarea>
+    <label for="media">Attach image/video (JPG/PNG/MP4, max 200MB)</label>
+    <input type="file" id="media" name="media" accept=".jpg,.jpeg,.png,.mp4" />
+    <button type="submit" class="btn-primary">Publish Post</button>
+  </form>
+
+  {% if error %}
+  <div class="error-box">{{ error }}</div>
+  {% endif %}
+
+  <div class="post-list">
+    {% for post in posts %}
+      <article class="card post-card">
+        <p>{{ post.content }}</p>
+        {% if post.media_type == 'image' %}
+          <img src="/{{ post.media_path }}" alt="Community upload" class="post-media" />
+        {% elif post.media_type == 'video' %}
+          <video class="post-media" controls>
+            <source src="/{{ post.media_path }}" type="video/mp4">
+          </video>
+        {% endif %}
+        <div class="post-meta">
+          <span>{{ post.created_at.strftime('%d %b %Y, %I:%M %p') }}</span>
+          <button class="like-btn" data-post-id="{{ post.id }}">👍 <span>{{ post.likes }}</span></button>
+        </div>
+      </article>
+    {% else %}
+      <p>No posts yet. Be the first to share.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+for (const button of document.querySelectorAll('.like-btn')) {
+  button.addEventListener('click', async () => {
+    const postId = button.dataset.postId;
+    const res = await fetch(`/api/community/${postId}/like`, { method: 'POST' });
+    if (res.ok) {
+      const data = await res.json();
+      button.querySelector('span').textContent = data.likes;
+    }
+  });
+}
+</script>
+{% endblock %}

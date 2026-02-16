@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Krishi Mitra | AI Farming Platform{% endblock %}
+{% block content %}
+<section class="hero container">
+  <div>
+    <p class="eyebrow">AI FOR SMART FARMING</p>
+    <h1>AI-Powered Farming Guidance in Your Language</h1>
+    <p class="subhead">Krishi Mitra helps small and medium farmers make faster, data-informed decisions through multilingual voice-first AI support.</p>
+    <a class="btn-primary" href="{{ url_for('main.ai_assistant_page') }}">Try AI Assistant</a>
+  </div>
+</section>
+
+<section class="container features">
+  <h2>Everything a farmer needs in one platform</h2>
+  <div class="grid-4">
+    <article class="card"><h3>🤖 AI Assistant</h3><p>Voice and text farming guidance in regional languages.</p></article>
+    <article class="card"><h3>🌿 Crop Diagnosis</h3><p>Identify crop stress and disease from field photos.</p></article>
+    <article class="card"><h3>📜 Govt Schemes</h3><p>Discover and understand relevant subsidy programs.</p></article>
+    <article class="card"><h3>👥 Community</h3><p>Learn directly from verified farmer experiences.</p></article>
+  </div>
+</section>
+
+<section class="container trust">
+  <div class="card trust-card">
+    <h2>Built for small farmers</h2>
+    <p>Krishi Mitra is designed for practical field realities: low bandwidth support, simple explanations, local language understanding, and high-trust recommendations with actionable next steps.</p>
+  </div>
+</section>
+{% endblock %}

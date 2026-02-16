@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Crop Diagnosis | Krishi Mitra{% endblock %}
+{% block content %}
+<section class="container page-section">
+  <h1>Crop Diagnosis</h1>
+  <p class="subhead">Upload field images (JPG/JPEG/PNG, up to 200MB) for AI-based diagnosis.</p>
+
+  <form method="post" enctype="multipart/form-data" class="card form-card" id="diagnosisForm">
+    <label for="image">Upload crop image</label>
+    <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png" required />
+    <img id="preview" class="preview hidden" alt="Preview" />
+    <button type="submit" class="btn-primary">Analyze Image</button>
+  </form>
+
+  {% if error %}
+    <div class="error-box">{{ error }}</div>
+  {% endif %}
+
+  {% if diagnosis_result %}
+    <section class="card result-card">
+      <h2>Diagnosis Report</h2>
+      <div class="result-block">
+        <h3>Analysis</h3>
+        <p>{{ diagnosis_result }}</p>
+      </div>
+    </section>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+const imageInput = document.getElementById('image');
+const preview = document.getElementById('preview');
+imageInput?.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 200 * 1024 * 1024) {
+    alert('File exceeds 200MB limit.');
+    event.target.value = '';
+    preview.classList.add('hidden');
+    return;
+  }
+  const valid = ['image/jpeg', 'image/png'];
+  if (!valid.includes(file.type)) {
+    alert('Only JPG, JPEG, and PNG files are allowed.');
+    event.target.value = '';
+    preview.classList.add('hidden');
+    return;
+  }
+  preview.src = URL.createObjectURL(file);
+  preview.classList.remove('hidden');
+});
+</script>
+{% endblock %}

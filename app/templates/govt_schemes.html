@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Government Schemes | Krishi Mitra{% endblock %}
+{% block content %}
+<section class="container page-section">
+  <h1>Government Schemes</h1>
+  <p class="subhead">Search any agriculture scheme and get AI-powered explanation.</p>
+
+  <div class="card form-card">
+    <label for="schemeQuery">Search schemes</label>
+    <div class="inline-form">
+      <input type="text" id="schemeQuery" placeholder="e.g. PM-KISAN eligibility for tenant farmers" />
+      <button id="schemeBtn" class="btn-primary">Search</button>
+    </div>
+  </div>
+
+  <section class="card result-card" id="schemeResult">
+    <h2>Result</h2>
+    <p>Enter a query to view details.</p>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+const btn = document.getElementById('schemeBtn');
+const queryInput = document.getElementById('schemeQuery');
+const resultBox = document.getElementById('schemeResult');
+
+btn.addEventListener('click', async () => {
+  const query = queryInput.value.trim();
+  if (!query) return;
+
+  resultBox.innerHTML = '<h2>Result</h2><p>Loading...</p>';
+  const response = await fetch('/api/schemes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query })
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    resultBox.innerHTML = `<h2>Result</h2><p>${data.error || 'Unable to fetch details.'}</p>`;
+    return;
+  }
+  resultBox.innerHTML = `<h2>Result</h2><pre>${data.result}</pre>`;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}AI Assistant | Krishi Mitra{% endblock %}
+{% block content %}
+<section class="container page-section">
+  <h1>AI Assistant</h1>
+  <p class="subhead">Ask questions in your language. Language detection is handled automatically.</p>
+
+  <div class="chat-card">
+    <div id="chatMessages" class="chat-messages">
+      <div class="message bot">Namaste! Ask me about crops, weather decisions, fertilizers, pest control, or market planning.</div>
+    </div>
+    <form id="chatForm" class="chat-form">
+      <input id="chatInput" type="text" placeholder="Type your farming question..." required />
+      <button type="submit" class="btn-primary">Send</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/assistant.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+krishi_mitra.db
+uploads/*
+!uploads/.gitkeep
+!uploads/community/
+!uploads/community/.gitkeep
+!uploads/diagnosis/
+!uploads/diagnosis/.gitkeep
