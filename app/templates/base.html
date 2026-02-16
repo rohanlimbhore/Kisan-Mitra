@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Krishi Mitra{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="{{ url_for('main.home') }}">Krishi Mitra</a>
+      <nav class="nav-links">
+        <a href="{{ url_for('main.ai_assistant_page') }}">AI Assistant</a>
+        <a href="{{ url_for('main.crop_diagnosis_page') }}">Crop Diagnosis</a>
+        <a href="{{ url_for('main.community_page') }}">Community</a>
+        <a href="{{ url_for('main.govt_schemes_page') }}">Govt Schemes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h4>Krishi Mitra</h4>
+        <p>AI-driven farming guidance for better crop outcomes.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>Email: support@krishimitra.in</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="{{ url_for('main.ai_assistant_page') }}">AI Assistant</a>
+        <a href="{{ url_for('main.crop_diagnosis_page') }}">Crop Diagnosis</a>
+      </div>
+    </div>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>
